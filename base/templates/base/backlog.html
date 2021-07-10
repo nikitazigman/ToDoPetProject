@@ -2,16 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ToDoList</title>
+    <title>Backlog</title>
 </head>
 <body>
-    <h1> task list </h1>
+
+    <h1> Backlog</h1>
 
     <a href="{% url 'task-create' %}"> Add Task </a>
 
     <table>
         <tr>
-            <th>Item</th>
+            <th>Tasks</th>
         </tr>
         {% for task in tasks %}
         <tr>
