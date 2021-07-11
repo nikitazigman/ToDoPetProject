@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>ToDoList</title>
-</head>
-<body>
-    <h1> task list </h1>
+{% extends 'base.html' %}
+
+{% block content %}
 
     <a href="{% url 'task-create' %}"> Add Task </a>
 
@@ -24,5 +19,5 @@
             <h3> No items in list </h3>
         {% endfor %}
     </table>
-</body>
-</html>
+
+{% endblock content %}

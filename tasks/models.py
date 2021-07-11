@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import User
 from dashboard.models import List
 
@@ -22,7 +23,7 @@ class Task(models.Model):
     difficulty = models.IntegerField(default=0)
     moved_number = models.IntegerField(default=0)
     modified_at = models.DateTimeField(auto_now=True)
-    deadline = models.DateTimeField(default=datetime.now())
+    deadline = models.DateTimeField(default=timezone.now())
 
     task_list = models.ForeignKey(List, on_delete=models.CASCADE)
 
