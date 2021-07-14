@@ -1,18 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <table>
-        <tr>
-            <th>Lists</th>
-        </tr>
-        {% for list in lists %}
+    <table class="table table-hover">
+        <thead>
             <tr>
-                <td> {{ list.title }}</td>
-                <td> <a href = "{% url 'tasks' list.id %}">view</a></td>
-                <td> <a href = "{% url 'list-delete' list.id %}">delete</a></td>
+                <th> Date </th>
+                <th>Tasks done</th>
+                <th>delete</th>
             </tr>
-            {% empty %}
-            <h3> no list in lists </h3>
-        {% endfor %}
+        </thead>
+        <tbody>
+            {% for list in lists %}
+                <tr>
+                    <td onclick="window.location.href=' {% url 'tasks' list.id %} '"> {{ list.title }}</td>
+                    <td> {{ list.done }}/{{ list.len }} </td>
+                    <td>
+                        <a type="button" class="btn btn-link" data-toggle="modal" data-target="#delConfirm">delete</a>
+                        {% url 'list-delete' list.id as the_url %}
+                        {% include 'delete_confirm.html' with object_name='task' delete_url=the_url %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
+
+
+
 {% endblock content %}

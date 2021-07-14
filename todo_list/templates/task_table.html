@@ -1,0 +1,24 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>status</th>
+            <th>delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td onclick="window.location.href=' {% url 'task-update' task.id %} '">{{ task.title }}</td>
+                <td> {{ task.status }} </td>
+                <td>
+                    <a type="button" class="btn btn-link" data-toggle="modal" data-target="#delConfirm">delete</a>
+                    {% url 'task-delete' task.id as the_url%}
+{#                    needed to be extract from for#}
+                    {% include 'delete_confirm.html' with object_name="task" delete_url=the_url %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+

@@ -34,7 +34,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
-    fields = fields = ['title', 'description', 'task_list', 'deadline', 'difficulty']
+    fields = fields = ['title', 'description', 'task_list', 'deadline', 'difficulty', 'status']
     success_url = reverse_lazy('dashboard')
 
 

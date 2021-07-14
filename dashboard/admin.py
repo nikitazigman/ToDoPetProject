@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from .models import List, Status
+from .models import List
 
 
 admin.site.register(List)
-admin.site.register(Status)

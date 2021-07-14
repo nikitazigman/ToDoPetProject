@@ -19,6 +19,21 @@ class ListsView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['lists'] = context['lists'].filter(user=self.request.user)
+
+        data = {'lists': []}
+
+        for row in context['lists']:
+            data['lists'].append(
+                {
+                    'id': row.id,
+                    'title': row.title,
+                    'done': row.tasks.filter(status=True).count(),
+                    'len': row.tasks.count(),
+                }
+            )
+
+        context['lists'] = data['lists']
+
         return context
 
 
@@ -26,6 +41,7 @@ class ListDeleteView(LoginRequiredMixin, DeleteView):
     model = List
     context_object_name = 'list'
     success_url = reverse_lazy('dashboard')
+    template_name = 'dashboard/dashboard.html'
 
 
 class BacklogView(LoginRequiredMixin, ListView):

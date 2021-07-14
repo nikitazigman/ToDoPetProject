@@ -18,14 +18,14 @@ class Task(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
-    status = models.ForeignKey(Status, on_delete=models.CASCADE, null=True, blank=True)
+    status = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     difficulty = models.IntegerField(default=0)
     moved_number = models.IntegerField(default=0)
     modified_at = models.DateTimeField(auto_now=True)
     deadline = models.DateTimeField(default=timezone.now())
 
-    task_list = models.ForeignKey(List, on_delete=models.CASCADE)
+    task_list = models.ForeignKey(List, on_delete=models.CASCADE, related_name='tasks')
 
     def __str__(self):
         return self.title
