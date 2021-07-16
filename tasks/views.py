@@ -14,6 +14,8 @@ class TasksView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tasks'] = context['tasks'].filter(task_list=self.kwargs.get('list_id'))
+        task = context['tasks'].first()
+        context['task_list_name'] = task.task_list.date
         return context
 
 

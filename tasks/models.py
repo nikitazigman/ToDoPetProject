@@ -6,13 +6,6 @@ from django.contrib.auth.models import User
 from dashboard.models import List
 
 
-class Status(models.Model):
-    status = models.CharField(max_length=20, null=True, blank=True)
-
-    def __str__(self):
-        return self.status
-
-
 class Task(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200)
@@ -23,7 +16,7 @@ class Task(models.Model):
     difficulty = models.IntegerField(default=0)
     moved_number = models.IntegerField(default=0)
     modified_at = models.DateTimeField(auto_now=True)
-    deadline = models.DateTimeField(default=timezone.now())
+    deadline = models.DateTimeField(default=timezone.now)
 
     task_list = models.ForeignKey(List, on_delete=models.CASCADE, related_name='tasks')
 

@@ -2,8 +2,31 @@
 
 {% block content %}
 
-    <a href="{% url 'task-create' %}"> Add Task </a>
+    <h1>{{ task_list_name }}</h1>
 
-    {% include 'task_table.html' %}
+    <div class="mt-5">
+        <a href="{% url 'task-create' %}">add a new task</a>
+
+        <table class="table table-hover mt-3">
+            <thead>
+                <tr>
+                    <th>title</th>
+                    <th>status</th>
+                    <th>delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td onclick="window.location.href=' {% url 'task-update' task.id %} '">{{ task.title }}</td>
+                        <td>{{ task.status }}</td>
+                        <td>
+                            <a href="{% url 'task-delete' task.id%}">delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock content %}
