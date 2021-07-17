@@ -18,8 +18,12 @@
             <tbody>
                 {% for task in tasks %}
                     <tr>
-                        <td onclick="window.location.href=' {% url 'task-update' task.id %} '">{{ task.title }}</td>
+                        <td>
+                            <a href="{% url 'task-update' task.id %}">{{ task.title }}</a>
+                        </td>
+
                         <td>{{ task.status }}</td>
+
                         <td>
                             <a href="{% url 'task-delete' task.id%}">delete</a>
                         </td>

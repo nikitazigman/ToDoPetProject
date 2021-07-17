@@ -2,12 +2,15 @@
 
 {% block content %}
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Login">
-    </form>
+    {% url 'register' as the_url %}
+    <div class="form-group mt-5 mx-auto w-25">
 
-    <p>Don't have an account? <a href="{% url 'register' %}">Register</a> </p>
+        {% include 'authentication/user_form.html' with form_type='login'%}
+
+        <div class="mt-5">
+            <p>Don't have an account? <a href="{{ the_url }}">Register</a> </p>
+        </div>
+
+    </div>
 
 {% endblock content %}

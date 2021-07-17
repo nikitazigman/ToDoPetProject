@@ -15,8 +15,10 @@
             </thead>
             <tbody>
                 {% for list in lists %}
-                    <tr onclick="window.location.href=' {% url 'tasks' list.id %} '">
-                        <td> {{ list.date }}</td>
+                    <tr>
+                        <td>
+                            <a href="{% url 'tasks' list.id %}">{{ list.date }}</a>
+                        </td>
                         <td> {{ list.len }} </td>
                         <td> {{ list.done }} </td>
                     </tr>

@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
 from .models import Task
-
+from .forms import TaskForm
 
 class TasksView(LoginRequiredMixin, ListView):
     model = Task
@@ -17,11 +17,6 @@ class TasksView(LoginRequiredMixin, ListView):
         task = context['tasks'].first()
         context['task_list_name'] = task.task_list.date
         return context
-
-
-class TaskDetail(LoginRequiredMixin, DetailView):
-    model = Task
-    context_object_name = 'task'
 
 
 class TaskCreate(LoginRequiredMixin, CreateView):
@@ -36,8 +31,9 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
-    fields = fields = ['title', 'description', 'task_list', 'deadline', 'difficulty', 'status']
+    # fields = ['title', 'description', 'task_list', 'deadline', 'difficulty', 'status']
     success_url = reverse_lazy('dashboard')
+    form_class = TaskForm
 
 
 class TaskDelete(LoginRequiredMixin, DeleteView):

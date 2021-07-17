@@ -1,15 +1,17 @@
 from django.shortcuts import redirect
 from django.views.generic.edit import FormView
 from django.contrib.auth.views import LoginView
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.urls import reverse_lazy
+
+from .forms import ToDoUserCreationForm, ToDoLoginForm
 
 
 class CustomLoginView(LoginView):
     template_name = 'authorization/login.html'
     fields = '__all__'
     redirect_authenticated_user = True
+    form_class = ToDoLoginForm
 
     def get_success_url(self):
         return reverse_lazy('dashboard')
@@ -17,7 +19,7 @@ class CustomLoginView(LoginView):
 
 class RegisterPage(FormView):
     template_name = 'authorization/register.html'
-    form_class = UserCreationForm
+    form_class = ToDoUserCreationForm
     redirect_authenticated_user = True
     success_url = reverse_lazy('dashboard')
 
