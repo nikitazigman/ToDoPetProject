@@ -18,7 +18,6 @@ class TaskForm(forms.ModelForm):
         fields = [
             'title',
             'description',
-            'task_list',
             'deadline',
             'difficulty',
             'status',
@@ -28,10 +27,7 @@ class TaskForm(forms.ModelForm):
             'title': forms.TextInput(attrs={
                 'class': 'form-control',
             }),
-            'description': forms.TextInput(attrs={
-                'class': 'form-control',
-            }),
-            'task_list': forms.Select(attrs={
+            'description': forms.Textarea(attrs={
                 'class': 'form-control',
             }),
             'deadline': forms.DateInput(attrs={
