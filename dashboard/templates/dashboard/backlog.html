@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 
+{% block backlog_class %}disabled{% endblock backlog_class %}
+
 {% block content %}
     <h1>Backlog</h1>
 
     {% include 'pagination.html' %}
 
     <div class="mt-5">
-{#        <a href="{% url 'task-create' %}">add a new task</a>#}
+        <a href="{% url 'task-create' %}?next={{ request.path|urlencode }}">add a new task</a>
+
         <table class="table table-hover mt-3">
             <thead>
                 <tr>
@@ -26,11 +29,15 @@
                         <td>{{ task.deadline }}</td>
 
                         <td>
-                            <a href="{% url 'tasks' task.task_list.id%}">{{ task.task_list.date }}</a>
+                            {% if task.task_list %}
+                                <a href="{% url 'tasks' task.task_list.id%}">{{ task.task_list.date }}</a>
+                            {% else %}
+                                {{ task.task_list }}
+                            {% endif %}
                         </td>
 
                         <td>
-                            <a href="{% url 'task-delete' task.id%}">delete</a>
+                            <a href="{% url 'task-delete' task.id%}?next={{ request.path|urlencode }}">delete</a>
                         </td>
                     </tr>
                 {% endfor %}

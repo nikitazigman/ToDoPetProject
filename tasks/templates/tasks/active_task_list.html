@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Active Backlog Tasks</h1>
+
+    {% include 'pagination.html' %}
+
+    <div class="mt-5">
+        <table class="table table-hover mt-3">
+            <thead>
+                <tr>
+                    <th>title</th>
+                    <th>deadline</th>
+                    <th>add</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td>
+                            {{ task.title }}
+                        </td>
+
+                        <td>{{ task.deadline }}</td>
+
+                        <td>
+                            {%  url 'tasks' list_id as list_url %}
+                            <form action="{% url 'task-add-to-list' task.id %}?next={{ list_url|urlencode }}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="task_list" value="{{ list_id }}">
+{#                                <input type="hidden" name="next" value="{{ list_id }}">#}
+                                <input type="submit" class="btn btn-primary" value="add task to list">
+                            </form>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}

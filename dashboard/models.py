@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class List(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.BooleanField(default=False)
     date = models.DateField(auto_now_add=False)
 
