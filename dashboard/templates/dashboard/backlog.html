@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block backlog_class %}disabled{% endblock backlog_class %}
+
+{% block content %}
+    <h1>Backlog</h1>
+
+    {% include 'pagination.html' %}
+
+    <div class="mt-5">
+        <a href="{% url 'task-create' %}?next={{ request.path|urlencode }}">add a new task</a>
+
+        <table class="table table-hover mt-3">
+            <thead>
+                <tr>
+                    <th>title</th>
+                    <th>deadline</th>
+                    <th>list</th>
+                    <th>delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'task-update' task.id %}">{{ task.title }}</a>
+                        </td>
+
+                        <td>{{ task.deadline }}</td>
+
+                        <td>
+                            {% if task.task_list %}
+                                <a href="{% url 'tasks' task.task_list.id%}">{{ task.task_list.date }}</a>
+                            {% else %}
+                                {{ task.task_list }}
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <a href="{% url 'task-delete' task.id%}?next={{ request.path|urlencode }}">delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}

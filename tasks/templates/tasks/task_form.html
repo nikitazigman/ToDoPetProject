@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ task.task_list.date }}</h1>
+
+    <div class="form-group mt-5 mx-auto w-50">
+        <form method="post" action="">
+            {% csrf_token %}
+
+            {% for non_field_error in form.non_field_errors %}
+                <small class="form-text text-danger">
+                    {{ non_field_error }}
+                </small>
+            {% endfor %}
+
+            {% for field in form %}
+
+                <div class="form-group">
+                    <small id="{{ field.label_id }}" class="form-text text-muted">
+                        {{ field.label }}
+                    </small>
+                    {{ field }}
+
+                    {% for error in field.errors %}
+                        <small id="{{ field.label_id }}" class="form-text text-danger">
+                            {{ error }}
+                        </small>
+                    {% endfor %}
+                </div>
+
+            {% endfor %}
+
+            <div class="input-group">
+                <input type="submit" class="btn btn-primary w-100" value="save">
+            </div>
+
+        </form>
+    </div>
+{% endblock content %}
