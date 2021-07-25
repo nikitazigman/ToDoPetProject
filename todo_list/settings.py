@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import os
 
 from pathlib import Path
 
@@ -37,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'base.apps.BaseConfig',
+    'dashboard.apps.DashboardConfig',
+    'tasks.apps.TasksConfig',
+    'authorization.apps.AuthorizationConfig',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +58,7 @@ ROOT_URLCONF = 'todo_list.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'todo_list/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,6 +109,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
+DATE_INPUT_FORMATS = ['%d-%m-%Y']
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -114,7 +119,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_URL = 'login'
+LOGIN_URL = '/authorization/login'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 

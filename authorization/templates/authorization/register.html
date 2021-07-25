@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% url 'register' as the_url %}
+    <div class="form-group mt-5 mx-auto w-25">
+
+        {% include 'authentication/user_form.html' with form_type='login'%}
+
+        <div class="mt-5">
+            <p>Already have an account? <a href="{% url 'login' %}">Login</a> </p>
+        </div>
+
+    </div>
+
+{% endblock content %}
