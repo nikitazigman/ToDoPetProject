@@ -5,23 +5,20 @@ from django.contrib.auth import login
 from django.urls import reverse_lazy
 
 from .forms import ToDoUserCreationForm, ToDoLoginForm
+from django_email_verification import send_email
 
 
 class CustomLoginView(LoginView):
     template_name = 'authorization/login.html'
     fields = '__all__'
-    redirect_authenticated_user = True
+    redirect_authenticated_user = False
     form_class = ToDoLoginForm
-
-    def get_success_url(self):
-        return reverse_lazy('dashboard')
 
 
 class RegisterPage(FormView):
     template_name = 'authorization/register.html'
     form_class = ToDoUserCreationForm
-    redirect_authenticated_user = True
-    success_url = reverse_lazy('dashboard')
+    success_url = reverse_lazy('login')
 
     def form_valid(self, form):
         user = form.save()
@@ -29,10 +26,15 @@ class RegisterPage(FormView):
         if user is not None:
             login(self.request, user)
 
-        return super(RegisterPage, self).form_valid(form)
+        return_val = super(RegisterPage, self).form_valid(form)
+
+        user.is_active = False
+        send_email(user)
+
+        return return_val
 
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated:
-            return redirect('dashboard')
+            return redirect('login')
 
         return super(RegisterPage, self).get(*args, **kwargs)

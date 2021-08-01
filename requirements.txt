@@ -1,1 +1,4 @@
 django==3.2.5
+django-email-verification==0.1.0
+pip install django-sendgrid-v5==0.9.1
+django-environ==0.4.5
