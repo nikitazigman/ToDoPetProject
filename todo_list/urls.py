@@ -16,10 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from django_email_verification import urls as email_urls
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', include('dashboard.urls')),
     path('task-list/', include('tasks.urls')),
     path('authorization/', include('authorization.urls')),
+    path('email/', include(email_urls)),
 ]
